@@ -1,0 +1,24 @@
+#cloud-config
+hostname: ${vm_hostname}
+manage_etc_hosts: false
+ssh_pwauth: false
+disable_root: true
+users:
+  - name: markom
+    sudo: ALL=(ALL) NOPASSWD:ALL
+    shell: /bin/bash
+    ssh_authorized_keys:
+      - ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABAQDMhoR8zPXz3r/sZ0qmoglz3JZQ5veclw20OxUQAn8/er3ZXt7jQcxZzYQJCHK5QkbmJPikkmUdaxEhwRDAeq3L3ACJm3k/+jvNIoEDQwKkd4wG28hOdtZvjgKBySsuHyxDAzJTxkjhkgEUbalkKHosPsZu0SYcESP0TZyExElBOvmc1Wel7i/CCt20UNpfHOxyIXdiAKzPF7qP1uC2jJwxuZkauJQZH7VMe+hjfCN2OSMzV/LpdfYsqLqK5WhmUkXOsGzb+Rf/fESF9sZLjcxXoYgxFWvLUGlm8loGXaKhdOLhWjtGz7RYcOtUFQkOx8lFkD3t9yXE6JJQKWh1rcNV
+
+growpart:
+  mode: auto
+  devices: ["/"]
+  ignore_growroot_disabled: false
+
+package_update: true
+package_upgrade: true
+packages:
+  - qemu-guest-agent
+
+runcmd:
+  - [ systemctl, start, qemu-guest-agent ]
