@@ -1,6 +1,10 @@
 pipeline {
     agent any
 
+    options {
+       ansiColor('xterm')
+    }
+
     stages {
         stage('Terraform init') {
             steps {
@@ -12,7 +16,9 @@ pipeline {
             steps {
             sshagent(['jenkins_agent']) {
                     script {
-                        sh 'terraform plan -out=tfplan -var libvirt_uri=$TF_VAR_libvirt_uri'
+                        echo "DISABLE_AUTH is ${TF_VAR_libvirt_uri}"
+                        sh 'printenv'
+                        sh 'terraform plan -out=tfplan -var "libvirt_uri=$TF_VAR_libvirt_uri"'
                     }
                 }
             }
