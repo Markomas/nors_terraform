@@ -42,5 +42,4 @@ variable "vm_cpus" {
 variable "base_image_id" {
   description = "ID of the base image"
   type        = string
-  default     = ""
 }
