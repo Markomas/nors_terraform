@@ -30,7 +30,7 @@ module "nors-app-green" {
   libvirt_uri = var.libvirt_uri
 }
 
-resource "local_file" "tf_ansible_vars_file_new" {
+resource "local_file" "nors_news_ansible_inventory_file" {
   content = <<-DOC
     green-lv-app:
         hosts:
