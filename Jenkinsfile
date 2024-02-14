@@ -14,18 +14,20 @@ pipeline {
 
         stage('Terraform Plan') {
             steps {
-            sshagent(['jenkins_agent']) {
+                sshagent(['jenkins_agent']) {
                     script {
                         sh "terraform plan -out=tfplan"
                     }
                 }
             }
         }
-        stage('Terraform apply') {
-             steps {
-                 sh 'terraform apply --auto-approve tfplan'
-             }
-        }
+//         stage('Terraform apply') {
+//              steps {
+//                 sshagent(['jenkins_agent']) {
+//                     sh 'terraform apply --auto-approve tfplan'
+//                 }
+//              }
+//         }
         stage('Upload State to backup') {
             steps {
                 sshPublisher(
