@@ -42,7 +42,8 @@ pipeline {
 
         stage('Save artefacts') {
             steps {
-
+                archiveArtifacts(projectartifacts: 'terraform.tfstate', fingerprint: true)
+                archiveArtifacts(projectartifacts: 'nors_news_ansible_inventory.tfstate', fingerprint: true, onlyIfSuccessful: true)
             }
         }
     }
