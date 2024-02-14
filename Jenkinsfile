@@ -21,11 +21,11 @@ pipeline {
                 }
             }
         }
-//         stage('Terraform apply') {
-//             steps {
-//                 sh 'terraform apply --auto-approve tfplan'
-//             }
-//         }
+        stage('Terraform apply') {
+             steps {
+                 sh 'terraform apply --auto-approve tfplan'
+             }
+        }
         stage('Upload State to backup') {
             steps {
                 sshPublisher(
@@ -33,7 +33,7 @@ pipeline {
                   failOnError: true,
                   publishers: [
                     sshPublisherDesc(
-                      configName: "baublas",
+                      configName: "baubilas",
                       transfers: [
                         sshTransfer(sourceFiles: 'terraform.tfstate'),
                         sshTransfer(sourceFiles: 'terraform.tfstate.backup')
