@@ -4,14 +4,18 @@ pipeline {
     stages {
         stage('Terraform init') {
             steps {
-                sh 'terraform init'
+            sshagent(['jenkins_agent']) {
+                    sh 'terraform init'
+                }
             }
         }
 
         stage('Terraform Plan') {
             steps {
-                script {
-                    sh 'terraform plan -out=tfplan'
+            sshagent(['jenkins_agent']) {
+                    script {
+                        sh 'terraform plan -out=tfplan'
+                    }
                 }
             }
         }
@@ -22,20 +26,22 @@ pipeline {
 //         }
         stage('Upload State to backup') {
             steps {
-                sshPublisher(
-                  continueOnError: false,
-                  failOnError: true,
-                  publishers: [
-                    sshPublisherDesc(
-                      configName: "baublas",
-                      transfers: [
-                        sshTransfer(sourceFiles: 'terraform.tfstate'),
-                        sshTransfer(sourceFiles: 'terraform.tfstate.backup')
-                      ],
-                      verbose: true
+                sshagent(['jenkins_agent']) {
+                    sshPublisher(
+                      continueOnError: false,
+                      failOnError: true,
+                      publishers: [
+                        sshPublisherDesc(
+                          configName: "baublas",
+                          transfers: [
+                            sshTransfer(sourceFiles: 'terraform.tfstate'),
+                            sshTransfer(sourceFiles: 'terraform.tfstate.backup')
+                          ],
+                          verbose: true
+                        )
+                      ]
                     )
-                  ]
-                )
+                }
             }
         }
     }
