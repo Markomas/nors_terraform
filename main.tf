@@ -16,6 +16,13 @@ resource "libvirt_pool" "pool" {
   path = "/var/lib/libvirt/images/terraform"
 }
 
+resource "libvirt_volume" "debian-base" {
+  name   = "debian_base.img"
+  pool   = libvirt_pool.pool.name
+  source = var.base_img_url
+  format = "qcow2"
+}
+
 module "nors-load-balancer" {
   source = "./module/debian"
   vm_name = "nors-load-balancer"
@@ -28,6 +35,7 @@ module "nors-lv-db" {
   vm_name = "nors-lv-db"
   pool = libvirt_pool.pool.name
   libvirt_uri = var.libvirt_uri
+  base_image_id = libvirt_volume.debian-base.id
   vm_size = 21474836480
 }
 

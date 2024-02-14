@@ -44,3 +44,9 @@ variable "vm_cpus" {
   type        = number
   default     = 1
 }
+
+variable "base_image_id" {
+  description = "ID of the base image, if set base_image_url will be ignored"
+  type        = string
+  default     = ""
+}

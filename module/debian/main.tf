@@ -18,6 +18,7 @@ resource "libvirt_pool" "pool" {
 }
 
 resource "libvirt_volume" "debian-base" {
+  count = var.base_image_id == "" ? 0 : 1
   name   = "${var.vm_name}_base.img"
   pool   = try(var.pool, libvirt_pool.pool.0.name)
   source = var.base_img_url
@@ -27,7 +28,7 @@ resource "libvirt_volume" "debian-base" {
 resource "libvirt_volume" "debian-disk-resized" {
   name           = "${var.vm_name}_resized.img"
   pool           = try(var.pool, libvirt_pool.pool.0.name)
-  base_volume_id = libvirt_volume.debian-base.id
+  base_volume_id = var.base_image_id == "" ? libvirt_volume.debian-base.id : 1
   size           = var.vm_size
 }
 
