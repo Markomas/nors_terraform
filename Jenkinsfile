@@ -12,9 +12,7 @@ pipeline {
             steps {
             sshagent(['jenkins_agent']) {
                     script {
-                        sh 'echo $TF_VAR_libvirt_uri'
-                        sh 'echo $(TF_VAR_libvirt_uri)'
-                        sh 'terraform plan -out=tfplan -var "libvirt_uri=$(TF_VAR_libvirt_uri)"'
+                        sh 'terraform plan -out=tfplan -var libvirt_uri=$TF_VAR_libvirt_uri'
                     }
                 }
             }
