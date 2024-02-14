@@ -29,3 +29,21 @@ module "nors-app-green" {
   pool = libvirt_pool.pool.name
   libvirt_uri = var.libvirt_uri
 }
+
+resource "local_file" "tf_ansible_vars_file_new" {
+  content = <<-DOC
+    green-lv-app:
+        hosts:
+            ${module.nors-app-green.ip}
+
+    blue-lv-app:
+        hosts:
+            ${module.nors-app-blue.ip}
+
+    prod-app:
+        children:
+            green-lv-app:
+            blue-lv-app:
+    DOC
+  filename = "./nors_news_ansible_inventory.yml"
+}

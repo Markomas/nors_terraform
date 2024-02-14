@@ -39,5 +39,11 @@ pipeline {
                 ]
             }
         }
+
+        stage('Save artefacts') {
+            steps {
+
+            }
+        }
     }
 }
