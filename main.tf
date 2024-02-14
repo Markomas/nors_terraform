@@ -27,6 +27,7 @@ module "nors-load-balancer" {
   source = "./module/debian"
   vm_name = "nors-load-balancer"
   pool = libvirt_pool.pool.name
+  libvirt_uri = var.libvirt_uri
   base_image_id = libvirt_volume.debian-base.id
   vm_cpus = 2
 }
@@ -45,6 +46,7 @@ module "nors-lv-app-blue" {
   source = "./module/debian"
   vm_name = "nors-app-blue"
   pool = libvirt_pool.pool.name
+  libvirt_uri = var.libvirt_uri
   base_image_id = libvirt_volume.debian-base.id
   vm_cpus = 2
 }
@@ -53,6 +55,7 @@ module "nors-lv-app-green" {
   source = "./module/debian"
   vm_name = "nors-app-green"
   pool = libvirt_pool.pool.name
+  libvirt_uri = var.libvirt_uri
   base_image_id = libvirt_volume.debian-base.id
   vm_cpus = 2
 }
