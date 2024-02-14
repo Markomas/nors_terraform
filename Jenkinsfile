@@ -16,9 +16,7 @@ pipeline {
             steps {
             sshagent(['jenkins_agent']) {
                     script {
-                        echo "DISABLE_AUTH is ${TF_VAR_libvirt_uri}"
-                        sh 'printenv'
-                        sh 'terraform plan -out=tfplan -var "libvirt_uri=$TF_VAR_libvirt_uri"'
+                        sh "terraform plan -out=tfplan -var 'libvirt_uri=qemu+ssh://markom.lt'"
                     }
                 }
             }
