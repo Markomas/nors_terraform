@@ -11,7 +11,7 @@ provider "libvirt" {
 }
 
 resource "libvirt_pool" "pool" {
-  name = "playground"
+  name = "nors_pool"
   type = "dir"
   path = "/var/lib/libvirt/images/terraform"
 }
@@ -23,14 +23,22 @@ module "nors-load-balancer" {
   libvirt_uri = var.libvirt_uri
 }
 
-module "nors-app-blue" {
+module "nors-lv-db" {
+  source = "./module/debian"
+  vm_name = "nors-lv-db"
+  pool = libvirt_pool.pool.name
+  libvirt_uri = var.libvirt_uri
+  vm_size = 21474836480
+}
+
+module "nors-lv-app-blue" {
   source = "./module/debian"
   vm_name = "nors-app-blue"
   pool = libvirt_pool.pool.name
   libvirt_uri = var.libvirt_uri
 }
 
-module "nors-app-green" {
+module "nors-lv-app-green" {
   source = "./module/debian"
   vm_name = "nors-app-green"
   pool = libvirt_pool.pool.name
@@ -43,13 +51,17 @@ resource "local_file" "nors_news_ansible_inventory_file" {
         hosts:
            ${module.nors-load-balancer.ip}
 
+    lv-db:
+        hosts:
+            ${module.nors-lv-db.ip}
+
     green-lv-app:
         hosts:
-            ${module.nors-app-green.ip}
+            ${module.nors-lv-app-green.ip}
 
     blue-lv-app:
         hosts:
-            ${module.nors-app-blue.ip}
+            ${module.nors-lv-app-blue.ip}
 
     prod-app:
         children:
