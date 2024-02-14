@@ -21,28 +21,30 @@ pipeline {
                 }
             }
         }
-//         stage('Terraform apply') {
-//              steps {
-//                 sshagent(['jenkins_agent']) {
-//                     sh 'terraform apply --auto-approve tfplan'
-//                 }
-//              }
-//         }
+
+        stage('Terraform apply') {
+             steps {
+                sshagent(['jenkins_agent']) {
+                    sh 'terraform apply --auto-approve tfplan'
+                }
+             }
+        }
+
         stage('Upload State to backup') {
             steps {
                 sshPublisher(
-                  continueOnError: false,
-                  failOnError: true,
-                  publishers: [
-                    sshPublisherDesc(
-                      configName: "baubilas",
-                      transfers: [
-                        sshTransfer(sourceFiles: 'terraform.tfstate'),
-                        sshTransfer(sourceFiles: 'terraform.tfstate.backup')
-                      ],
-                      verbose: true
-                    )
-                  ]
+                    continueOnError: false,
+                    failOnError: true,
+                    publishers: [
+                        sshPublisherDesc(
+                            configName: 'baubilas',
+                            transfers: [
+                                sshTransfer(sourceFiles: 'terraform.tfstate'),
+                                sshTransfer(sourceFiles: 'terraform.tfstate.backup')
+                            ],
+                            verbose: true
+                        )
+                    ]
                 )
             }
         }
