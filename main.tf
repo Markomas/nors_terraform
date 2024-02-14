@@ -28,6 +28,7 @@ module "nors-load-balancer" {
   vm_name = "nors-load-balancer"
   pool = libvirt_pool.pool.name
   libvirt_uri = var.libvirt_uri
+  vm_cpus = 2
 }
 
 module "nors-lv-db" {
@@ -37,6 +38,7 @@ module "nors-lv-db" {
   libvirt_uri = var.libvirt_uri
   base_image_id = libvirt_volume.debian-base.id
   vm_size = 21474836480
+  vm_cpus = 4
 }
 
 module "nors-lv-app-blue" {
@@ -44,6 +46,7 @@ module "nors-lv-app-blue" {
   vm_name = "nors-app-blue"
   pool = libvirt_pool.pool.name
   libvirt_uri = var.libvirt_uri
+  vm_cpus = 2
 }
 
 module "nors-lv-app-green" {
@@ -51,6 +54,7 @@ module "nors-lv-app-green" {
   vm_name = "nors-app-green"
   pool = libvirt_pool.pool.name
   libvirt_uri = var.libvirt_uri
+  vm_cpus = 2
 }
 
 resource "local_file" "nors_news_ansible_inventory_file" {
