@@ -16,7 +16,7 @@ pipeline {
             steps {
             sshagent(['jenkins_agent']) {
                     script {
-                        sh "terraform plan -out=tfplan -var 'libvirt_uri=qemu+ssh://markom.lt'"
+                        sh "terraform plan -out=tfplan"
                     }
                 }
             }

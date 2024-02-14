@@ -20,12 +20,12 @@ module "nors-app-blue" {
   source = "./module/debian"
   vm_name = "nors-app-blue"
   pool = libvirt_pool.pool.name
-  libvirt_pool_path = var.libvirt_uri
+  libvirt_uri = var.libvirt_uri
 }
 
 module "nors-app-green" {
   source = "./module/debian"
   vm_name = "nors-app-green"
   pool = libvirt_pool.pool.name
-  libvirt_pool_path = var.libvirt_uri
+  libvirt_uri = var.libvirt_uri
 }
