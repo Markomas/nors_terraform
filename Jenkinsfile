@@ -32,20 +32,11 @@ pipeline {
 
         stage('Upload State to backup') {
             steps {
-                sshPublisher(
-                    continueOnError: false,
-                    failOnError: true,
-                    publishers: [
-                        sshPublisherDesc(
-                            configName: 'baubilas',
-                            transfers: [
-                                sshTransfer(sourceFiles: 'terraform.tfstate'),
-                                sshTransfer(sourceFiles: 'terraform.tfstate.backup')
-                            ],
-                            verbose: true
-                        )
-                    ]
-                )
+                ftpPublisher alwaysPublishFromMaster: true, continueOnError: false, failOnError: false, publishers: [
+                    [configName: 'bubilas', transfers: [
+                        [asciiMode: false, cleanRemote: false, excludes: '', flatten: false, makeEmptyDirs: false, noDefaultExcludes: false, patternSeparator: '[, ]+', remoteDirectorySDF: false, removePrefix: '', sourceFiles: '**.tfstate']
+                    ], usePromotionTimestamp: false, useWorkspaceInPromotion: false, verbose: true]
+                ]
             }
         }
     }
