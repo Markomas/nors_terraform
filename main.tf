@@ -16,6 +16,13 @@ resource "libvirt_pool" "pool" {
   path = "/var/lib/libvirt/images/terraform"
 }
 
+module "nors-load-balancer" {
+  source = "./module/debian"
+  vm_name = "nors-load-balancer"
+  pool = libvirt_pool.pool.name
+  libvirt_uri = var.libvirt_uri
+}
+
 module "nors-app-blue" {
   source = "./module/debian"
   vm_name = "nors-app-blue"
@@ -32,6 +39,10 @@ module "nors-app-green" {
 
 resource "local_file" "nors_news_ansible_inventory_file" {
   content = <<-DOC
+    lv-load-balancer:
+        hosts:
+           ${module.nors-load-balancer.ip}
+
     green-lv-app:
         hosts:
             ${module.nors-app-green.ip}
