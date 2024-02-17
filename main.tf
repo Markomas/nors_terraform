@@ -62,26 +62,26 @@ module "nors-lv-app-green" {
 
 resource "local_file" "nors_news_ansible_inventory_file" {
   content = <<-DOC
-    lv-load-balancer:
+    lv_load_balancer:
         hosts:
            ${module.nors-load-balancer.ip}
 
-    lv-db:
+    lv_db:
         hosts:
             ${module.nors-lv-db.ip}
 
-    green-lv-app:
+    green_lv_app:
         hosts:
             ${module.nors-lv-app-green.ip}
 
-    blue-lv-app:
+    blue_lv_app:
         hosts:
             ${module.nors-lv-app-blue.ip}
 
-    prod-app:
+    prod_app:
         children:
-            green-lv-app:
-            blue-lv-app:
+            green_lv_app:
+            blue_lv_app:
     DOC
   filename = "./nors_news_ansible_inventory.yml"
 }
