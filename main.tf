@@ -44,7 +44,7 @@ module "nors-lv-db" {
 
 module "nors-lv-db-slave" {
   source = "./module/debian"
-  vm_name = "nors-lv-db"
+  vm_name = "nors-lv-db-slave"
   pool = libvirt_pool.pool.name
   libvirt_uri = var.libvirt_uri
   base_image_id = libvirt_volume.debian-base.id
