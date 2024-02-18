@@ -42,6 +42,16 @@ module "nors-lv-db" {
   vm_cpus = 4
 }
 
+module "nors-lv-db-slave" {
+  source = "./module/debian"
+  vm_name = "nors-lv-db"
+  pool = libvirt_pool.pool.name
+  libvirt_uri = var.libvirt_uri
+  base_image_id = libvirt_volume.debian-base.id
+  vm_size = 21474836480
+  vm_cpus = 4
+}
+
 module "nors-lv-app-blue" {
   source = "./module/debian"
   vm_name = "nors-app-blue"
@@ -69,6 +79,10 @@ resource "local_file" "nors_news_ansible_inventory_file" {
     lv_db:
         hosts:
             ${module.nors-lv-db.ip}
+
+    lv_db_slave:
+        hosts:
+            ${module.nors-lv-db-slave.ip}
 
     green_lv_app:
         hosts:
