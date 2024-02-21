@@ -51,6 +51,7 @@ resource "libvirt_domain" "domain-debian" {
   network_interface {
     bridge         = "br0"
     wait_for_lease = true
+    mac = var.mac_address
    }
 
   disk {

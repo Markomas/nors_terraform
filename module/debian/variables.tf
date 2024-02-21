@@ -43,3 +43,8 @@ variable "base_image_id" {
   description = "ID of the base image"
   type        = string
 }
+
+variable "mac_address" {
+  description = "MAC address of the VM"
+  type        = string
+}
