@@ -30,7 +30,7 @@ module "nors-load-balancer" {
   libvirt_uri = var.libvirt_uri
   base_image_id = libvirt_volume.debian-base.id
   vm_cpus = 2
-  mac_address = "b7:f1:4e:1e:f7:d7"
+  mac_address = "06:49:30:1e:27:49"
 }
 
 module "nors-lv-db" {
@@ -41,7 +41,7 @@ module "nors-lv-db" {
   base_image_id = libvirt_volume.debian-base.id
   vm_size = 21474836480
   vm_cpus = 4
-  mac_address = "a6:24:e9:61:99:30"
+  mac_address = "7a:9a:2e:1b:a7:91"
 }
 
 module "nors-lv-db-slave" {
@@ -52,7 +52,7 @@ module "nors-lv-db-slave" {
   base_image_id = libvirt_volume.debian-base.id
   vm_size = 21474836480
   vm_cpus = 4
-  mac_address = "21:0b:46:32:23:5a"
+  mac_address = "56:2e:93:69:75:b1"
 }
 
 module "nors-lv-app-blue" {
@@ -62,7 +62,7 @@ module "nors-lv-app-blue" {
   libvirt_uri = var.libvirt_uri
   base_image_id = libvirt_volume.debian-base.id
   vm_cpus = 2
-  mac_address = "e3:d1:3e:12:f5:6b"
+  mac_address = "e6:26:58:a5:80:28"
 }
 
 module "nors-lv-app-green" {
@@ -72,7 +72,7 @@ module "nors-lv-app-green" {
   libvirt_uri = var.libvirt_uri
   base_image_id = libvirt_volume.debian-base.id
   vm_cpus = 2
-  mac_address = "e4:c8:c6:8e:99:cb"
+  mac_address = "da:9c:77:0c:69:ce"
 }
 
 resource "local_file" "nors_news_ansible_inventory_file" {
