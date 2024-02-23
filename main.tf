@@ -75,6 +75,16 @@ module "nors-lv-app-green" {
   mac_address = "da:9c:77:0c:69:ce"
 }
 
+module "nors-lv-app-background" {
+  source = "./module/debian"
+  vm_name = "nors-app-background"
+  pool = libvirt_pool.pool.name
+  libvirt_uri = var.libvirt_uri
+  base_image_id = libvirt_volume.debian-base.id
+  vm_cpus = 1
+  mac_address = "da:9c:77:0c:69:cf"
+}
+
 resource "local_file" "nors_news_ansible_inventory_file" {
   content = <<-DOC
     lv_load_balancer:
@@ -96,6 +106,10 @@ resource "local_file" "nors_news_ansible_inventory_file" {
     blue_lv_app:
         hosts:
             ${module.nors-lv-app-blue.ip}
+
+    background_lv_app:
+        hosts:
+            ${module.nors-lv-app-background.ip}
 
     prod_app:
         children:
