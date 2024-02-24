@@ -48,3 +48,8 @@ variable "mac_address" {
   description = "MAC address of the VM"
   type        = string
 }
+
+variable "vm_ip" {
+  description = "IP address of the VM"
+  type        = string
+}
