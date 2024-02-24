@@ -50,7 +50,7 @@ resource "libvirt_domain" "domain-debian" {
 
   network_interface {
     bridge         = "br0"
-    //wait_for_lease = true
+    wait_for_lease = true
     hostname = "${var.vm_name}.local"
     addresses = ["${var.vm_ip}"]
     mac = var.mac_address
