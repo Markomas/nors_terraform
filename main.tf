@@ -87,7 +87,7 @@ module "nors-lv-app-background" {
 
 module "nors-lv-app-tor" {
   source = "./module/debian"
-  vm_name = "nors-app-background"
+  vm_name = "nors-app-tor"
   pool = libvirt_pool.pool.name
   libvirt_uri = var.libvirt_uri
   base_image_id = libvirt_volume.debian-base.id
